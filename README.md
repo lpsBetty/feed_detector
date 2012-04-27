@@ -1,6 +1,10 @@
 # FeedDetector
 
-TODO: Write a gem description
+Detecting RSS feeds: When you use a proper browser like Mozilla Firefox you will see a syndication icon every time you visit a website that has RSS feeds:
+
+It does this by reading certain HTML tags.
+
+After a quick search I couldn’t find any code to do this in my own project, so I wrote a little piece of code for it with a RubyOnRails integration test.
 
 ## Installation
 
@@ -18,7 +22,27 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    FeedDetector.fetch_feed_urls('http://www.rubycorner.com')
+    => ["http://www.rubycorner.com/feeds/updated/atom10", "http://www.rubycorner.com/feeds/updated/rss20"]
+
+    FeedDetector.fetch_feed_urls('http://blog.dominiek.com/')
+     => ["http://blog.dominiek.com/feed/atom.xml"]
+
+    FeedDetector.fetch_feed_urls('http://blog.dominiek.com/feed/atom.xml')
+    => ["http://blog.dominiek.com/feed/atom.xml"]
+
+    FeedDetector.fetch_feed_urls('http://www.flickr.com/photos/dominiekterheide/', :rss)
+    => ["http://api.flickr.com/services/feeds/photos_public.gne?id=71386598@N00&amp;lang=en-us&format=rss_200"]
+
+alternatively you can parse HTML with 
+    
+    FeedDetector.get_feed_paths(html_data)
+
+see integration test for more examples
+
+## TODO
+* Decouple parsing and retrieving data.
+* Tests should not depend on data retrieved from the web taking a particular form.
 
 ## Contributing
 
