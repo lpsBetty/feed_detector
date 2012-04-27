@@ -7,7 +7,7 @@ class FeedDetectorTest < Test::Unit::TestCase
     @body = []
     
     @wordpress_atom_url = 'http://bettysteger.com/feed/' # the link says it's RSS, the XML is really ATOM
-    @wordpress_single_feed_page_url = 'http://9gag.com/'
+    @wordpress_single_feed_page_url = 'http://showmaniac.org'
     @wordpress_several_feed_page_url = 'http://bettysteger.com/'  
     
     @blogger_atom_url = 'http://ethandraws.blogspot.com/feeds/posts/default'
@@ -80,12 +80,12 @@ class FeedDetectorTest < Test::Unit::TestCase
   
   def test_fetch_feed_urls
     # page containing a single feed pointer
-    result = ["http://9gag.com/rss/site/feed.rss"]
+    result = ["http://showmaniac.org/feed"]
     feed_paths = FeedDetector.fetch_feed_urls(@wordpress_single_feed_page_url)
     assert_equal(result, feed_paths)
-    feed_paths = FeedDetector.fetch_feed_urls(@wordpress_single_feed_page_url, :rss)
-    assert_equal(result, feed_paths)
     feed_paths = FeedDetector.fetch_feed_urls(@wordpress_single_feed_page_url, :atom)
+    assert_equal(result, feed_paths)
+    feed_paths = FeedDetector.fetch_feed_urls(@wordpress_single_feed_page_url, :rss)
     assert_equal([], feed_paths)
     
     # page containing several feed pointers
