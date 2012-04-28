@@ -87,6 +87,10 @@ class FeedDetectorTest < Test::Unit::TestCase
     assert_equal(result, feed_paths)
     feed_paths = FeedDetector.fetch_feed_urls(@wordpress_single_feed_page_url, :rss)
     assert_equal([], feed_paths)
+
+    url = "http://showmaniac.org/259"
+    result = ["http://showmaniac.org/feed/259"]
+    assert_equal result, FeedDetector.fetch_feed_urls(url)
     
     # page containing several feed pointers
     result = [@wordpress_atom_url, "http://bettysteger.com/comments/feed/"]  
